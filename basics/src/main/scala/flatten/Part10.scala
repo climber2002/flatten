@@ -2,6 +2,7 @@ package flatten
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.language.higherKinds
 
 trait Part10 {
 
@@ -43,6 +44,10 @@ trait Part10 {
   }
 
   // Exercise: create a `Monad` instance for `Option`
-
+  val forOptionMonad = new Monad[Option] {
+    override def map[A, B](option: Option[A])(function: A => B): Option[B] = option.map(function)
+    override def flatMap[A, B](option: Option[A])(function: A => Option[B]): Option[B] = option.flatMap(function)
+    override def create[B](value: B): Option[B] = Some(value)
+  }
 
 }
