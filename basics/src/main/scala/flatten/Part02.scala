@@ -68,4 +68,12 @@ trait Part02 {
   */
 
   // Exercise: Uncomment the failing code to see the compilation errors.
+
+  for {
+    username <- getUserName(data).right
+    user <- getUser(username).right
+    email <- Right(getEmail(user)).right
+    validatedEmail <- validateEmail(email).right
+    success <- sendEmail(email).right
+  } yield success
 }
